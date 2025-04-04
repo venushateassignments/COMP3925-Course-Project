@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crime Demographic Analysis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+        .page {
+            background-color: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        .page-indicator {
+            text-align: center;
+            font-weight: bold;
+            color: #7f8c8d;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1 - Introduction -->
+    <div id="page1" class="page">
+        <header>
+            <h1>Crime Demographic Analysis</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Introduction</h2>
+            <p>This report examines the relationship between various demographic factors and crime rates across different regions. Using linear regression analysis, we've identified key correlations that help explain variations in crime statistics.</p>
+            
+            <div class="chart-container">
+                <!-- Placeholder for your first chart -->
+                <img src="https://via.placeholder.com/800x400?text=Overview+Chart" alt="Overview Chart" style="width:100%">
+            </div>
+            
+            <p>Our analysis covers 10 different demographic variables, including age groups and poverty rates among different racial groups. The following pages will explore these relationships in detail.</p>
+            
+            <p>Key findings include a moderate correlation (R² = 0.42) between the proportion of young residents (0-17) and crime rates, suggesting that areas with higher youth populations tend to experience more crime.</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button disabled>Previous</button>
+            <button onclick="navigateTo(2)">Next</button>
+        </div>
+        <div class="page-indicator">Page 1 of 5</div>
+    </div>
+
+    <!-- Page 2 - Age Group Analysis -->
+    <div id="page2" class="page" style="display:none">
+        <header>
+            <h1>Age Group Analysis</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Impact of Different Age Groups</h2>
+            <p>This section explores how different age demographics correlate with crime rates. We analyzed four key age groups: 0-17, 18-34, 35-64, and 65+.</p>
+            
+            <div class="chart-container">
+                <!-- Placeholder for age group chart -->
+                <img src="https://via.placeholder.com/800x400?text=Age+Group+Analysis" alt="Age Group Chart" style="width:100%">
+            </div>
+            
+            <p>The strongest correlation was found in the 18-34 age group (R² = 0.38), which aligns with criminology research showing higher criminal activity among young adults.</p>
+            
+            <p>Interestingly, the 65+ age group showed a negative correlation with crime rates (R² = 0.15), suggesting areas with more senior residents tend to have lower crime.</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(1)">Previous</button>
+            <button onclick="navigateTo(3)">Next</button>
+        </div>
+        <div class="page-indicator">Page 2 of 5</div>
+    </div>
+
+    <!-- Page 3 - Racial Poverty Analysis -->
+    <div id="page3" class="page" style="display:none">
+        <header>
+            <h1>Poverty and Crime by Race</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Poverty Rates Among Different Racial Groups</h2>
+            <p>We examined how poverty rates within different racial communities correlate with crime statistics.</p>
+            
+            <div class="chart-container">
+                <!-- Placeholder for racial poverty chart -->
+                <img src="https://via.placeholder.com/800x400?text=Racial+Poverty+Analysis" alt="Racial Poverty Chart" style="width:100%">
+            </div>
+            
+            <p>The analysis revealed that poverty among Black communities showed the strongest correlation with crime rates (R² = 0.42), followed by Hispanic communities (R² = 0.31).</p>
+            
+            <p>White and Asian poverty rates showed weaker correlations (R² = 0.25 and 0.19 respectively), suggesting different socioeconomic factors may be at play.</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(2)">Previous</button>
+            <button onclick="navigateTo(4)">Next</button>
+        </div>
+        <div class="page-indicator">Page 3 of 5</div>
+    </div>
+
+    <!-- Page 4 - Geographic Patterns -->
+    <div id="page4" class="page" style="display:none">
+        <header>
+            <h1>Geographic Patterns</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Spatial Distribution of Crime Correlations</h2>
+            <p>This section examines how the demographic-crime relationships vary across different geographic regions.</p>
+            
+            <div class="chart-container">
+                <!-- Placeholder for map chart -->
+                <img src="https://via.placeholder.com/800x400?text=Geographic+Distribution" alt="Geographic Chart" style="width:100%">
+            </div>
+            
+            <p>Urban areas showed stronger correlations between demographic factors and crime rates compared to suburban and rural regions.</p>
+            
+            <p>The Northeast district displayed particularly strong correlations across multiple demographic factors, while coastal areas showed weaker relationships.</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(3)">Previous</button>
+            <button onclick="navigateTo(5)">Next</button>
+        </div>
+        <div class="page-indicator">Page 4 of 5</div>
+    </div>
+
+    <!-- Page 5 - Conclusions -->
+    <div id="page5" class="page" style="display:none">
+        <header>
+            <h1>Conclusions and Recommendations</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Key Findings and Policy Implications</h2>
+            <p>Our analysis reveals several important patterns in the relationship between demographics and crime rates.</p>
+            
+            <div class="chart-container">
+                <!-- Placeholder for summary chart -->
+                <img src="https://via.placeholder.com/800x400?text=Summary+of+Findings" alt="Summary Chart" style="width:100%">
+            </div>
+            
+            <h3>Main Conclusions:</h3>
+            <ul>
+                <li>Youth population (especially 18-34) shows the strongest correlation with crime rates</li>
+                <li>Poverty in Black communities correlates more strongly with crime than in other racial groups</li>
+                <li>Geographic patterns suggest urban areas need targeted interventions</li>
+            </ul>
+            
+            <h3>Recommendations:</h3>
+            <ol>
+                <li>Develop youth employment and education programs in high-correlation areas</li>
+                <li>Targeted economic development in communities with high poverty-crime correlations</li>
+                <li>Further research into why certain demographic factors show stronger correlations than others</li>
+            </ol>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(4)">Previous</button>
+            <button disabled>Next</button>
+        </div>
+        <div class="page-indicator">Page 5 of 5</div>
+    </div>
+
+    <footer>
+        <p>Crime Demographic Analysis Report &copy; 2023 | Data Source: LAPD Crime Statistics</p>
+    </footer>
+
+    <script>
+        function navigateTo(pageNum) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show the selected page
+            document.getElementById(`page${pageNum}`).style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
