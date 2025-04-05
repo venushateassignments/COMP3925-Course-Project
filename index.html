@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <title>Crime Demographic Analysis</title>
     <style>
         body {
@@ -118,6 +119,36 @@
             background-color: #f0f0f0;
             padding: 2px 5px;
             border-radius: 3px;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
+        .info {
+            padding: 6px 8px;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+        .map-container {
+            width: 500px;
+            height: 500px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -299,6 +330,16 @@
             </div> 
 
             <p>The relationship between different demographic groups and crime rate are further studied by data analytics in the next section.</p>
+
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        
+
+
+
+            
         </div>
         
         <div class="nav-buttons">
@@ -476,6 +517,126 @@
             window.scrollTo(0, 0);
         }
     </script>
+    
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <!-- Leaflet Heat Plugin -->
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+    <script>
+        let mapInitialized = false;
+    
+        function initializeMap() {
+            if (mapInitialized) return;
+    
+            const map = L.map('map').setView([34.05, -118.25], 10);
+    
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+    
+            const data = [
+                {lat: 34.1892, lng: -118.6019, crime: 4.35, pop: 186370, teen: 10.68, poverty: 0.40},
+                {lat: 34.2356, lng: -118.5159, crime: 4.04, pop: 197790, teen: 12.04, poverty: 0.43},
+                {lat: 33.9762, lng: -118.4739, crime: 6.54, pop: 177121, teen: 8.20, poverty: 0.55},
+                {lat: 34.2759, lng: -118.4639, crime: 2.52, pop: 336575, teen: 14.92, poverty: 0.54},
+                {lat: 34.1899, lng: -118.4519, crime: 3.56, pop: 246127, teen: 10.63, poverty: 0.82},
+                {lat: 34.1914, lng: -118.4475, crime: 4.24, pop: 190886, teen: 12.53, poverty: 0.74},
+                {lat: 34.0443, lng: -118.4414, crime: 3.40, pop: 274170, teen: 10.96, poverty: 0.30},
+                {lat: 34.2593, lng: -118.4209, crime: 6.10, pop: 116482, teen: 11.90, poverty: 0.24},
+                {lat: 34.1726, lng: -118.3789, crime: 5.05, pop: 201301, teen: 9.80, poverty: 0.84},
+                {lat: 34.0928, lng: -118.3287, crime: 4.93, pop: 206416, teen: 7.04, poverty: 0.80},
+                {lat: 34.0629, lng: -118.3087, crime: 9.52, pop: 97609, teen: 6.90, poverty: 1.07},
+                {lat: 34.0026, lng: -118.3068, crime: 5.26, pop: 212352, teen: 11.94, poverty: 6.31},
+                {lat: 34.0485, lng: -118.2918, crime: 6.07, pop: 158906, teen: 10.02, poverty: 1.39},
+                {lat: 33.9896, lng: -118.2895, crime: 8.62, pop: 154997, teen: 14.88, poverty: 9.32},
+                {lat: 33.7902, lng: -118.2819, crime: 4.46, pop: 199024, teen: 13.68, poverty: 1.61},
+                {lat: 34.0687, lng: -118.2733, crime: 4.43, pop: 203700, teen: 10.48, poverty: 1.26},
+                {lat: 34.0446, lng: -118.2477, crime: 6.99, pop: 166002, teen: 10.51, poverty: 4.17},
+                {lat: 34.0246, lng: -118.2463, crime: 6.87, pop: 145535, teen: 17.01, poverty: 4.29},
+                {lat: 33.9383, lng: -118.2454, crime: 10.37, pop: 104615, teen: 18.18, poverty: 8.19},
+                {lat: 34.0983, lng: -118.2407, crime: 4.88, pop: 173180, teen: 9.63, poverty: 0.19},
+                {lat: 34.0407, lng: -118.2055, crime: 5.22, pop: 149420, teen: 14.68, poverty: 0.37}
+            ];
+    
+            const heatPoints = data.map(d => [d.lat, d.lng, d.crime / 10]);
+            const heat = L.heatLayer(heatPoints, {
+                radius: 25,
+                blur: 15,
+                maxZoom: 17
+            }).addTo(map);
+    
+            const markers = [];
+    
+
+            data.forEach(d => {
+                const marker = L.circleMarker([d.lat, d.lng], {
+                    radius: d.crime * 1.5, // Adjust the multiplier to scale bubble size
+                    stroke: false,         // No border
+                    fillColor: 'red',
+                    fillOpacity: 0.7
+                });
+
+                const tooltipContent = `
+                    <strong>Crime Rate:</strong> ${d.crime.toFixed(2)}%<br/>
+                    <strong>Population:</strong> ${d.pop.toLocaleString()}<br/>
+                    <strong>Teenage Proportion:</strong> ${d.teen.toFixed(2)}%<br/>
+                    <strong>Black Poverty Rate:</strong> ${d.poverty.toFixed(2)}%
+                `;
+
+                marker.bindTooltip(tooltipContent, {
+                    permanent: false,
+                    direction: 'top',
+                    className: 'tooltip-custom',
+                    opacity: 0.9
+                });
+
+                marker.on('mouseover', () => {
+                    markers.forEach(m => {
+                        if (m !== marker) {
+                            m.setStyle({ fillOpacity: 0.1 });
+                        }
+                    });
+                    marker.setStyle({ fillOpacity: 1 });
+                });
+
+                marker.on('mouseout', () => {
+                    markers.forEach(m => {
+                        m.setStyle({ fillOpacity: 0.7 });
+                    });
+                });
+
+                marker.addTo(map);
+                markers.push(marker);
+            });
+    
+            mapInitialized = true;
+    
+            // Fix resizing issue when map becomes visible
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 200);
+        }
+    
+        function navigateTo(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+    
+            const selectedPage = document.getElementById(`page${pageNum}`);
+            selectedPage.style.display = 'block';
+            window.scrollTo(0, 0);
+    
+            // Initialize map only when navigating to page 6
+            if (pageNum === 6) {
+                initializeMap();
+            }
+        }
+    </script>
+
+
+            
 </body>
 </html>
 
