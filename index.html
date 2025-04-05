@@ -39,6 +39,23 @@
             padding: 20px;
             background-color: #f5f5f5;
             border-radius: 5px;
+            text-align: center;
+        }
+        .chart-container-wide {
+            width: 90%;
+            margin: 5px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .chart-container-narrow {
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            text-align: center;
         }
         .nav-buttons {
             display: flex;
@@ -73,156 +90,376 @@
             color: #7f8c8d;
             font-size: 0.9em;
         }
+        .findings-container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .finding-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .finding-item:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .r-squared {
+            font-family: monospace;
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
     <!-- Page 1 - Introduction -->
     <div id="page1" class="page">
         <header>
-            <h1>Crime Demographic Analysis</h1>
+            <h1>2020 Los Angeles ​Crime Demographic Analysis​</h1>
         </header>
         
         <div class="content">
             <h2>Introduction</h2>
-            <p>This report examines the relationship between various demographic factors and crime rates across different regions. Using linear regression analysis, we've identified key correlations that help explain variations in crime statistics.</p>
+            <p>This report examines the relationship between various demographic factors and crime rates across different regions in Los Angeles with the data acquired in 2020. The crime data was acquired from <a href="http://catalog.data.gov/dataset/crime-data-from-2020-to-present" target="_blank">DATA.GOV</a> while the population data was collected from <a href="https://geohub.lacity.org/datasets/lacounty::2020-population-and-poverty-at-split-tract/about" target="_blank">Los Angeles Geohub</a></p>
             
+            <p>In this analysis age and poverty are the 2 focused demographic variables. Data are visualized using various visualization techniques and analyzed by linear regression.</p>
+
             <div class="chart-container">
                 <!-- Placeholder for your first chart -->
-                <img src="https://via.placeholder.com/800x400?text=Overview+Chart" alt="Overview Chart" style="width:100%">
+                <img src="img/crime_frontpage.jpg" alt="Overview Chart" style="width: 75%; height: auto;">
             </div>
-            
-            <p>Our analysis covers 10 different demographic variables, including age groups and poverty rates among different racial groups. The following pages will explore these relationships in detail.</p>
-            
-            <p>Key findings include a moderate correlation (R² = 0.42) between the proportion of young residents (0-17) and crime rates, suggesting that areas with higher youth populations tend to experience more crime.</p>
+
+            <p><b>Key Findings</b></p>
+    
+            <div class="findings-container">
+                <div class="finding-item">
+                    <span class="highlight">Moderate correlation</span> (<span class="r-squared">R² = 0.42</span>) between the proportion of black people in poverty and crime rates, suggesting that areas with higher populations of Black people in poverty tend to experience more crime.
+                </div>
+                
+                <div class="finding-item">
+                    <span class="highlight">Weak correlation</span> (<span class="r-squared">R² = 0.20</span>) between the proportion of people in poverty and crime rates, suggesting that areas with higher populations of people in poverty tend to experience more crime.
+                </div>
+                
+                <div class="finding-item">
+                    <span class="highlight">Weak correlation</span> (<span class="r-squared">R² = 0.19</span>) between the proportion of elderly (65+) and crime rates, suggesting that areas with higher populations of elderly tend to experience more crime.
+                </div>
+            </div>
         </div>
         
         <div class="nav-buttons">
             <button disabled>Previous</button>
             <button onclick="navigateTo(2)">Next</button>
         </div>
-        <div class="page-indicator">Page 1 of 5</div>
+        <div class="page-indicator">Page 1 of 10</div>
     </div>
 
-    <!-- Page 2 - Age Group Analysis -->
+    <!-- Page 2 - Crime -->
     <div id="page2" class="page" style="display:none">
         <header>
-            <h1>Age Group Analysis</h1>
+            <h1>Crime in Los Angeles</h1>
         </header>
         
         <div class="content">
-            <h2>Impact of Different Age Groups</h2>
-            <p>This section explores how different age demographics correlate with crime rates. We analyzed four key age groups: 0-17, 18-34, 35-64, and 65+.</p>
+            <p>This section explores crimes in Los Angeles in variuos perspectives. </p>
             
             <div class="chart-container">
-                <!-- Placeholder for age group chart -->
-                <img src="https://via.placeholder.com/800x400?text=Age+Group+Analysis" alt="Age Group Chart" style="width:100%">
+                <img src="img/crime_ov.jpg" alt="Crime Overview" style="width:100%">
             </div>
-            
-            <p>The strongest correlation was found in the 18-34 age group (R² = 0.38), which aligns with criminology research showing higher criminal activity among young adults.</p>
-            
-            <p>Interestingly, the 65+ age group showed a negative correlation with crime rates (R² = 0.15), suggesting areas with more senior residents tend to have lower crime.</p>
+
+            <p>Crime rate is the dependent variable in this study. It is calculated by <strong><em>Number of Crimes in a District / Total population in a District</em></strong>. Below is a heat map indication the level of crime rate with respect to the geographic location group by LAPD.</p>
+
+            <div class="chart-container">
+                <img src="img/crime_dist.jpg" alt="Crime Overview" style="width:100%">
+            </div>
         </div>
         
         <div class="nav-buttons">
             <button onclick="navigateTo(1)">Previous</button>
             <button onclick="navigateTo(3)">Next</button>
         </div>
-        <div class="page-indicator">Page 2 of 5</div>
+        <div class="page-indicator">Page 2 of 10</div>
     </div>
 
-    <!-- Page 3 - Racial Poverty Analysis -->
+   <!-- Page 3 - Population -->
     <div id="page3" class="page" style="display:none">
         <header>
-            <h1>Poverty and Crime by Race</h1>
+            <h1>Population Distributions</h1>
         </header>
         
         <div class="content">
-            <h2>Poverty Rates Among Different Racial Groups</h2>
-            <p>We examined how poverty rates within different racial communities correlate with crime statistics.</p>
+            <h2>Population Distribution Grouped by Combined Statistic Area (CSA)</h2>
+            <p>Combined Statistical Area (CSA) in the United States is a geographic region comprising multiple adjacent metropolitan and micropolitan areas with strong economic and social ties, as designated by the Office of Management and Budget (OMB). The below data shows the population distributions in LA grouped by CSA. </p>
             
             <div class="chart-container">
-                <!-- Placeholder for racial poverty chart -->
-                <img src="https://via.placeholder.com/800x400?text=Racial+Poverty+Analysis" alt="Racial Poverty Chart" style="width:100%">
+                <img src="img/pop_ov_map_csa.jpg" alt="pop ov csa map" style="width: 75%; height: auto;">
+                <img src="img/pop_ov_CSA.jpg" alt="pop ov csa" style="width:100%">
             </div>
+
+            <h2>Population Distribution Grouped by Los Angeles Police District (LAPD)</h2>
+            <p>The Los Angeles Police Department (LAPD) is the primary law enforcement agency serving Los Angeles, organized into 21 geographic divisions (e.g., Central, Hollywood, Southwest) and specialized bureaus, operating under the motto "To Protect and To Serve." The below data shows the population distributions in LA grouped by LAPD. In this study population grouped by LAPD will be focused, for the reason of bounding the research scope to LA where LAPD has the jurisdiction.</p>
             
-            <p>The analysis revealed that poverty among Black communities showed the strongest correlation with crime rates (R² = 0.42), followed by Hispanic communities (R² = 0.31).</p>
-            
-            <p>White and Asian poverty rates showed weaker correlations (R² = 0.25 and 0.19 respectively), suggesting different socioeconomic factors may be at play.</p>
+            <div class="chart-container">
+                <img src="img/pop_ov_map_lapd.jpg" alt="pop ov lapd" style="width: 75%; height: auto;">
+                <img src="img/pop_ov_LAPD.jpg" alt="pop ov lapd" style="width:100%">
+            </div>
+
         </div>
         
         <div class="nav-buttons">
             <button onclick="navigateTo(2)">Previous</button>
             <button onclick="navigateTo(4)">Next</button>
         </div>
-        <div class="page-indicator">Page 3 of 5</div>
+        <div class="page-indicator">Page 3 of 10</div>
     </div>
 
-    <!-- Page 4 - Geographic Patterns -->
+    <!-- Page 4 - Age -->
     <div id="page4" class="page" style="display:none">
         <header>
-            <h1>Geographic Patterns</h1>
+            <h1>Age Distribution</h1>
         </header>
         
         <div class="content">
-            <h2>Spatial Distribution of Crime Correlations</h2>
-            <p>This section examines how the demographic-crime relationships vary across different geographic regions.</p>
+            <h2>Age Distribution across LA</h2>
+            <p>This section examines the population distribution of LA People grouped by different ages. The upper graph shows the percentage distribution of different age groups in different districts, while the lower graph is a stacked bar chart showing the number of people in different age group across different districts.</p>
             
-            <div class="chart-container">
-                <!-- Placeholder for map chart -->
-                <img src="https://via.placeholder.com/800x400?text=Geographic+Distribution" alt="Geographic Chart" style="width:100%">
+            <div class="chart-container-wide">
+                <img src="img/age_dist.jpg" alt="Geographic Chart" style="width:100%">
             </div>
             
-            <p>Urban areas showed stronger correlations between demographic factors and crime rates compared to suburban and rural regions.</p>
-            
-            <p>The Northeast district displayed particularly strong correlations across multiple demographic factors, while coastal areas showed weaker relationships.</p>
+            <h2>Focused Group I: Teenage</h2>
+            <p>The age group data is further combined to to focus on teenager(Age 10-19), aims at providing insight to the teenage issue in LA. The red broken line indicating the crime rate of the region.</p>
+
+            <div class="chart-container">
+                <img src="img/teen_dist.jpg" alt="Geographic Chart" style="width:100%">
+            </div>           
+
         </div>
         
         <div class="nav-buttons">
             <button onclick="navigateTo(3)">Previous</button>
             <button onclick="navigateTo(5)">Next</button>
         </div>
-        <div class="page-indicator">Page 4 of 5</div>
+        <div class="page-indicator">Page 4 of 10</div>
     </div>
 
-    <!-- Page 5 - Conclusions -->
+    <!-- Page 5 - Poverty -->
     <div id="page5" class="page" style="display:none">
         <header>
-            <h1>Conclusions and Recommendations</h1>
+            <h1>Poverty Distribution</h1>
         </header>
         
         <div class="content">
-            <h2>Key Findings and Policy Implications</h2>
-            <p>Our analysis reveals several important patterns in the relationship between demographics and crime rates.</p>
+            <h2>Poverty Distribution by Different Races across LA</h2>
+            <p></p>
             
-            <div class="chart-container">
-                <!-- Placeholder for summary chart -->
-                <img src="https://via.placeholder.com/800x400?text=Summary+of+Findings" alt="Summary Chart" style="width:100%">
+            <div class="chart-container-wide">
+                <img src="img/pov_dist.jpg" alt="Summary Chart" style="width:100%">
             </div>
+        
             
-            <h3>Main Conclusions:</h3>
-            <ul>
-                <li>Youth population (especially 18-34) shows the strongest correlation with crime rates</li>
-                <li>Poverty in Black communities correlates more strongly with crime than in other racial groups</li>
-                <li>Geographic patterns suggest urban areas need targeted interventions</li>
-            </ul>
-            
-            <h3>Recommendations:</h3>
-            <ol>
-                <li>Develop youth employment and education programs in high-correlation areas</li>
-                <li>Targeted economic development in communities with high poverty-crime correlations</li>
-                <li>Further research into why certain demographic factors show stronger correlations than others</li>
-            </ol>
+            <h2>Focused Group II: Black People in Poverty</h2>
+            <p>The black people in poverty is chosen as the second focus group since it is a historical social issue in US. Below is a plot of proportion of black people in poverty in different districts, with the red broken line indicating the crime rate of the region.</p>
+
+            <div class="chart-container">
+                <img src="img/black_dist.jpg" alt="Geographic Chart" style="width:100%">
+            </div>  
         </div>
         
         <div class="nav-buttons">
             <button onclick="navigateTo(4)">Previous</button>
-            <button disabled>Next</button>
+            <!-- <button disabled>Next</button> -->
+            <button onclick="navigateTo(6)">Next</button>
         </div>
-        <div class="page-indicator">Page 5 of 5</div>
+        <div class="page-indicator">Page 5 of 10</div>
+    </div>
+
+
+    <!-- Page 6 - Map Overview -->
+    <div id="page6" class="page" style="display:none">
+        <header>
+            <h1>Demographic Groups in Map</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Map View of Different Demographic Groups in LA</h2>
+            <p>The below is a combined heat map of population, number of teenagers, number of black people in poverty and crime rate in percentage plotted onto the map of LA. The four different maps shows a certain level of similarity.</p>
+            
+            <div class="chart-container-wide">
+                <img src="img/ov_map.jpg" alt="Summary Chart" style="width:100%">
+            </div> 
+
+            <p>The relationship between different demographic groups and crime rate are further studied by data analytics in the next section.</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(5)">Previous</button>
+            <!-- <button disabled>Next</button> -->
+            <button onclick="navigateTo(7)">Next</button>
+        </div>
+        <div class="page-indicator">Page 6 of 10</div>
+    </div>
+
+    <!-- Page 7 - Data Analysis I -->
+    <div id="page7" class="page" style="display:none">
+        <header>
+            <h1>Data Analysis I: Age Distribution</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Scatter Plot and Linear Regression</h2>
+            <p>The below is a scatter plot of different age groups proportion in a population against the crime rate. </p>
+            
+            <div class="chart-container-wide">
+                <img src="img/da_age.jpg" alt="Summary Chart" style="width:100%">
+            </div> 
+
+            <div class="findings-container">
+                <div class="finding-item">
+                    <strong>Age 65+ shows a weak negative correlation towards crime rate</strong> with (<span class="r-squared">R² < 0.1</span>). Part of the statistics might be explained by the elderly are less energetic and no incentive to commit crime​
+                </div>
+                <div class="finding-item">
+                    <strong>Age 0-17, 18-34 and 35-64 shows a very weak correlation towards crime rate</strong> with (<span class="r-squared">R² < 0.1</span>).
+                </div>
+            </div>
+
+            <h2>Focused Group I: Teenagers</h2>
+            <p>The below is a scatter plot of teenage proportion against the crime rate. </p>
+            
+            <div class="chart-container-narrow">
+                <img src="img/da_teen.jpg" alt="Summary Chart" style="width:100%">
+            </div> 
+
+            <div class="findings-container">
+                <div class="finding-item">
+                    <strong>Teenager shows a very weak negative correlation towards crime rate</strong> with (<span class="r-squared">R² = 0.03</span>). It is good to find out teenager population in LA is irrelevant to the increase in crime rate.
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(6)">Previous</button>
+            <!-- <button disabled>Next</button> -->
+            <button onclick="navigateTo(8)">Next</button>
+        </div>
+        <div class="page-indicator">Page 7 of 10</div>
+    </div>
+
+    <!-- Page 8 - Data Analysis II -->
+    <div id="page8" class="page" style="display:none">
+        <header>
+            <h1>Data Analysis II: Poverty Distribution</h1>
+        </header>
+        
+        <div class="content">
+            <h2>Scatter Plot and Linear Regression</h2>
+            <p>The below is a scatter plot of different proportion of poverty people of different races in a population against the crime rate. </p>
+            
+            <div class="chart-container-wide">
+                <img src="img/da_race.jpg" alt="Summary Chart" style="width:100%">
+            </div> 
+
+            <div class="findings-container">
+                <div class="finding-item">
+                    <strong>Overall poverty shows a weak correlation towards crime rate</strong> with (<span class="r-squared">R² < 0.1</span>).
+                </div>
+            </div>
+
+            <h2>Focused Group II: Black People in Poverty</h2>
+            <p>The below is a scatter plot of black people proportion against the crime rate. </p>
+            
+            <div class="chart-container-narrow">
+                <img src="img/da_black.jpg" alt="Summary Chart" style="width:100%">
+            </div> 
+
+            <div class="findings-container">
+                <div class="finding-item">
+                    <strong>Black People in poverty shows a moderate correlation towards crime rate</strong> with (<span class="r-squared">R² = 0.42</span>). It is a historical social problem in US reflected by the data. It may also account for the weak correlation between overall poverty and crime rate.
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="nav-buttons">
+            <button onclick="navigateTo(7)">Previous</button>
+            <!-- <button disabled>Next</button> -->
+            <button onclick="navigateTo(9)">Next</button>
+        </div>
+        <div class="page-indicator">Page 8 of 10</div>
+    </div>
+
+    <!-- Page 9 - Age -->
+    <div id="page9" class="page" style="display:none">
+            <header>
+                <h1>Data Analysis III: Conclusion</h1>
+            </header>
+            
+            <div class="content">
+                <h2>R² Comparison of Different Independent Variables</h2>
+                <p>This section summarize the findings along with different age groups and poverty people in different races.</p>
+                
+                <div class="chart-container-wide">
+                    <img src="img/final.jpg" alt="Geographic Chart" style="width:100%">
+                </div>
+
+                <div class="findings-container">
+                    <div class="finding-item">
+                        <span class="highlight">Moderate correlation</span> (<span class="r-squared">R² = 0.42</span>) between the proportion of black people in poverty and crime rates, suggesting that areas with higher populations of Black people in poverty tend to experience more crime.
+                    </div>
+                    
+                    <div class="finding-item">
+                        <span class="highlight">Weak correlation</span> (<span class="r-squared">R² = 0.20</span>) between the proportion of people in poverty and crime rates, suggesting that areas with higher populations of people in poverty tend to experience more crime.
+                    </div>
+                    
+                    <div class="finding-item">
+                        <span class="highlight">Weak correlation</span> (<span class="r-squared">R² = 0.19</span>) between the proportion of elderly (65+) and crime rates, suggesting that areas with higher populations of elderly tend to experience more crime.
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button onclick="navigateTo(8)">Previous</button>
+                <button onclick="navigateTo(10)">Next</button>
+            </div>
+        <div class="page-indicator">Page 9 of 10</div>
+    </div>
+
+    <!-- Page 10 - credit -->
+    <div id="page10" class="page" style="display:none">
+            <header>
+                <h1>Credit</h1>
+            </header>
+            
+            <div class="content">
+                <p>Special thanks to the followings parties for the helping crime data analysis and visualizations.</p>
+                <div style="text-align: center; font-family: Arial, sans-serif; line-height: 1.6;">
+                    <strong>
+                        <p>HE Chenglong​​</p>
+                        <p>LIU Yiyang​​</p>
+                        <p>TSUI Sum Chung​​</p>
+                        <p>ZHOU Yubo​</p>
+                    </strong>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button onclick="navigateTo(9)">Previous</button>
+                <button onclick="navigateTo(1)">Top</button>
+            </div>
+        <div class="page-indicator">Page 10 of 10</div>
     </div>
 
     <footer>
-        <p>Crime Demographic Analysis Report &copy; 2023 | Data Source: LAPD Crime Statistics</p>
+        <p>Crime Demographic Analysis Report &copy; 2025 | Choi Hiu Tung Venus</p>
     </footer>
 
     <script>
@@ -241,3 +478,4 @@
     </script>
 </body>
 </html>
+
